@@ -1,0 +1,26 @@
+# Example workflow configuration for using the AI Code Reviewer action.
+# Copy this to your repository's .github/workflows/ directory.
+
+name: AI Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  ai-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: AI Code Review
+        uses: Arunchunchukumar/ai-code-reviewer@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          model: gpt-4
+          review-focus: security,performance,bugs
+          max-files: 10
+          ignore-patterns: '*.test.ts,*.spec.ts,*.md,package-lock.json'
