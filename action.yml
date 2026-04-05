@@ -1,0 +1,35 @@
+name: 'AI Code Reviewer'
+description: 'Automatically review pull requests using OpenAI GPT-4 with inline comments'
+author: 'Arun Kumar'
+
+branding:
+  icon: 'eye'
+  color: 'purple'
+
+inputs:
+  github-token:
+    description: 'GitHub token for API access (usually secrets.GITHUB_TOKEN)'
+    required: true
+  openai-api-key:
+    description: 'OpenAI API key for GPT-4 access'
+    required: true
+  model:
+    description: 'OpenAI model to use for reviews'
+    required: false
+    default: 'gpt-4'
+  review-focus:
+    description: 'Comma-separated review focus areas: security, performance, bugs, style, all'
+    required: false
+    default: 'all'
+  max-files:
+    description: 'Maximum number of files to review per PR'
+    required: false
+    default: '10'
+  ignore-patterns:
+    description: 'Comma-separated glob patterns for files to skip'
+    required: false
+    default: ''
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
